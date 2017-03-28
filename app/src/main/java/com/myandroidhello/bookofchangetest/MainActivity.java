@@ -1,5 +1,6 @@
 package com.myandroidhello.bookofchangetest;
 
+import android.animation.ObjectAnimator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView image1, image2, image3, image4, image5, image6;
     Button rollButton;
     int i = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
                     image1.setVisibility(View.VISIBLE);
                     image1.setImageResource(id);
                     i = i + 1;
-
-                } else if (i == 2){
+                    flipIt(image1.getId());
+                } else if (i == 2) {
                     Random rand = new Random();
                     int rndInt = rand.nextInt(2) + 1; // n = the number of images, that start at idx 1
                     String imgName = "img" + rndInt;
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                     image2.setVisibility(View.VISIBLE);
                     image2.setImageResource(id);
                     i = i + 1;
-                } else if (i == 3){
+                } else if (i == 3) {
                     Random rand = new Random();
                     int rndInt = rand.nextInt(2) + 1; // n = the number of images, that start at idx 1
                     String imgName = "img" + rndInt;
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                     image3.setVisibility(View.VISIBLE);
                     image3.setImageResource(id);
                     i = i + 1;
-                } else if (i == 4){
+                } else if (i == 4) {
                     Random rand = new Random();
                     int rndInt = rand.nextInt(2) + 1; // n = the number of images, that start at idx 1
                     String imgName = "img" + rndInt;
@@ -65,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                     image4.setVisibility(View.VISIBLE);
                     image4.setImageResource(id);
                     i = i + 1;
-                } else if (i == 5){
+                } else if (i == 5) {
                     Random rand = new Random();
                     int rndInt = rand.nextInt(2) + 1; // n = the number of images, that start at idx 1
                     String imgName = "img" + rndInt;
@@ -73,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                     image5.setVisibility(View.VISIBLE);
                     image5.setImageResource(id);
                     i = i + 1;
-                } else if (i == 6){
+                } else if (i == 6) {
                     Random rand = new Random();
                     int rndInt = rand.nextInt(2) + 1; // n = the number of images, that start at idx 1
                     String imgName = "img" + rndInt;
@@ -85,5 +87,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void flipIt(int id) {
+        ObjectAnimator flip = ObjectAnimator.ofFloat(id, "rotationY", 0f, 360f);
+        flip.setDuration(3000);
+        flip.start();
     }
 }
