@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Random;
 
@@ -47,17 +46,16 @@ public class MainActivity extends AppCompatActivity {
         rollButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                flipAll();
                 if (i == 1) {
-                    flipIt1();
-//                    Random rand = new Random();
-//                    int rndInt = rand.nextInt(2) + 1; // n = the number of images, that start at idx 1
-//                    String imgName = "img" + rndInt;
-//                    int id = getResources().getIdentifier(imgName, "drawable", getPackageName());
-//                    image1.setVisibility(View.VISIBLE);
-//                    image1.setImageResource(id);
-//                    i = i + 1;
-//                    flipAll();
+                    Random rand = new Random();
+                    int rndInt = rand.nextInt(2) + 1; // n = the number of images, that start at idx 1
+                    String imgName = "img" + rndInt;
+                    int id = getResources().getIdentifier(imgName, "drawable", getPackageName());
+                    image1.setVisibility(View.VISIBLE);
+                    image1.setImageResource(id);
+                    i = i + 1;
+
 
                 } else if (i == 2) {
                     Random rand = new Random();
@@ -67,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                     image2.setVisibility(View.VISIBLE);
                     image2.setImageResource(id);
                     i = i + 1;
-                    flipAll();
+
 
                 } else if (i == 3) {
                     Random rand = new Random();
@@ -77,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                     image3.setVisibility(View.VISIBLE);
                     image3.setImageResource(id);
                     i = i + 1;
-                    flipAll();
+
 
                 } else if (i == 4) {
                     Random rand = new Random();
@@ -87,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     image4.setVisibility(View.VISIBLE);
                     image4.setImageResource(id);
                     i = i + 1;
-                    flipAll();
+
 
                 } else if (i == 5) {
                     Random rand = new Random();
@@ -97,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     image5.setVisibility(View.VISIBLE);
                     image5.setImageResource(id);
                     i = i + 1;
-                    flipAll();
+
 
                 } else if (i == 6) {
                     Random rand = new Random();
@@ -107,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
                     image6.setVisibility(View.VISIBLE);
                     image6.setImageResource(id);
                     i = i + 1;
-                    flipAll();
                     resultsTextView.setText(results[0]);
                 }
             }
@@ -116,13 +113,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void flipAll() {
-        flipIt1();
-        flipIt2();
-        flipIt3();
+        flipIt(coinImg1);
+        flipIt(coinImg2);
+        flipIt(coinImg3);
     }
 
-    private void flipIt1() {
-        ObjectAnimator flip = ObjectAnimator.ofFloat(coinImg1, "rotationY", 0f, 3600f);
+    private void flipIt(ImageView resource) {
+
+        ObjectAnimator flip = ObjectAnimator.ofFloat(resource, "rotationY", 0f, 3600f);
         Random rand = new Random();
         flipDuration = rand.nextInt(3000 - 2000 + 1) + 2000;
         flip.setDuration(flipDuration);
@@ -130,25 +128,9 @@ public class MainActivity extends AppCompatActivity {
         flip.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-
+                // show pictures
             }
         });
-    }
-
-    private void flipIt2() {
-        ObjectAnimator flip = ObjectAnimator.ofFloat(coinImg2, "rotationY", 0f, 3600f);
-        Random random = new Random();
-        flipDuration = random.nextInt(3000 - 2500 + 1) + 2500;
-        flip.setDuration(flipDuration);
-        flip.start();
-    }
-
-    private void flipIt3() {
-        ObjectAnimator flip = ObjectAnimator.ofFloat(coinImg3, "rotationY", 0f, 3600f);
-        Random rand = new Random();
-        flipDuration = rand.nextInt(3000 - 2500 + 1) + 2500;
-        flip.setDuration(flipDuration);
-        flip.start();
     }
 
 
