@@ -1,5 +1,7 @@
 package com.myandroidhello.bookofchangetest;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -35,11 +38,10 @@ public class MainActivity extends AppCompatActivity {
         coinImg2 = (ImageView) findViewById(R.id.coinImg2);
         coinImg3 = (ImageView) findViewById(R.id.coinImg3);
         rollButton = (Button) findViewById(R.id.rollButton);
-        resultsTextView = (TextView)findViewById(R.id.textResult);
+        resultsTextView = (TextView) findViewById(R.id.textResult);
 
         Resources res = getResources();
         final String[] results = res.getStringArray(R.array.results);
-
 
 
         rollButton.setOnClickListener(new View.OnClickListener() {
@@ -47,15 +49,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (i == 1) {
-                    Random rand = new Random();
-                    int rndInt = rand.nextInt(2) + 1; // n = the number of images, that start at idx 1
-                    String imgName = "img" + rndInt;
-                    int id = getResources().getIdentifier(imgName, "drawable", getPackageName());
-                    image1.setVisibility(View.VISIBLE);
-                    image1.setImageResource(id);
-                    i = i + 1;
-                    flipAll();
-                    //Thread.sleep(flipDuration);
+                    flipIt1();
+//                    Random rand = new Random();
+//                    int rndInt = rand.nextInt(2) + 1; // n = the number of images, that start at idx 1
+//                    String imgName = "img" + rndInt;
+//                    int id = getResources().getIdentifier(imgName, "drawable", getPackageName());
+//                    image1.setVisibility(View.VISIBLE);
+//                    image1.setImageResource(id);
+//                    i = i + 1;
+//                    flipAll();
 
                 } else if (i == 2) {
                     Random rand = new Random();
@@ -125,12 +127,18 @@ public class MainActivity extends AppCompatActivity {
         flipDuration = rand.nextInt(3000 - 2000 + 1) + 2000;
         flip.setDuration(flipDuration);
         flip.start();
+        flip.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+            }
+        });
     }
 
     private void flipIt2() {
         ObjectAnimator flip = ObjectAnimator.ofFloat(coinImg2, "rotationY", 0f, 3600f);
-        Random rand = new Random();
-        flipDuration = rand.nextInt(3000 - 2500 + 1) + 2500;
+        Random random = new Random();
+        flipDuration = random.nextInt(3000 - 2500 + 1) + 2500;
         flip.setDuration(flipDuration);
         flip.start();
     }
@@ -142,7 +150,6 @@ public class MainActivity extends AppCompatActivity {
         flip.setDuration(flipDuration);
         flip.start();
     }
-
 
 
 }
