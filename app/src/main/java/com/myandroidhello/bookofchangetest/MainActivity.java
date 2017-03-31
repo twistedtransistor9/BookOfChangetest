@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         image1 = (ImageView) (findViewById(R.id.imageView1));
         image2 = (ImageView) findViewById(R.id.imageView2);
         image3 = (ImageView) findViewById(R.id.imageView3);
@@ -39,74 +40,13 @@ public class MainActivity extends AppCompatActivity {
         rollButton = (Button) findViewById(R.id.rollButton);
         resultsTextView = (TextView) findViewById(R.id.textResult);
 
-        Resources res = getResources();
-        final String[] results = res.getStringArray(R.array.results);
-
 
         rollButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 flipAll();
-                if (i == 1) {
-                    Random rand = new Random();
-                    int rndInt = rand.nextInt(2) + 1; // n = the number of images, that start at idx 1
-                    String imgName = "img" + rndInt;
-                    int id = getResources().getIdentifier(imgName, "drawable", getPackageName());
-                    image1.setVisibility(View.VISIBLE);
-                    image1.setImageResource(id);
-                    i = i + 1;
-
-
-                } else if (i == 2) {
-                    Random rand = new Random();
-                    int rndInt = rand.nextInt(2) + 1; // n = the number of images, that start at idx 1
-                    String imgName = "img" + rndInt;
-                    int id = getResources().getIdentifier(imgName, "drawable", getPackageName());
-                    image2.setVisibility(View.VISIBLE);
-                    image2.setImageResource(id);
-                    i = i + 1;
-
-
-                } else if (i == 3) {
-                    Random rand = new Random();
-                    int rndInt = rand.nextInt(2) + 1; // n = the number of images, that start at idx 1
-                    String imgName = "img" + rndInt;
-                    int id = getResources().getIdentifier(imgName, "drawable", getPackageName());
-                    image3.setVisibility(View.VISIBLE);
-                    image3.setImageResource(id);
-                    i = i + 1;
-
-
-                } else if (i == 4) {
-                    Random rand = new Random();
-                    int rndInt = rand.nextInt(2) + 1; // n = the number of images, that start at idx 1
-                    String imgName = "img" + rndInt;
-                    int id = getResources().getIdentifier(imgName, "drawable", getPackageName());
-                    image4.setVisibility(View.VISIBLE);
-                    image4.setImageResource(id);
-                    i = i + 1;
-
-
-                } else if (i == 5) {
-                    Random rand = new Random();
-                    int rndInt = rand.nextInt(2) + 1; // n = the number of images, that start at idx 1
-                    String imgName = "img" + rndInt;
-                    int id = getResources().getIdentifier(imgName, "drawable", getPackageName());
-                    image5.setVisibility(View.VISIBLE);
-                    image5.setImageResource(id);
-                    i = i + 1;
-
-
-                } else if (i == 6) {
-                    Random rand = new Random();
-                    int rndInt = rand.nextInt(2) + 1; // n = the number of images, that start at idx 1
-                    String imgName = "img" + rndInt;
-                    int id = getResources().getIdentifier(imgName, "drawable", getPackageName());
-                    image6.setVisibility(View.VISIBLE);
-                    image6.setImageResource(id);
-                    i = i + 1;
-                    resultsTextView.setText(results[0]);
-                }
+//
             }
         });
 
@@ -128,9 +68,36 @@ public class MainActivity extends AppCompatActivity {
         flip.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                // show pictures
+                if (i == 3) {
+                    showImg(image1);
+                } else if (i == 6) {
+                    showImg(image2);
+                } else if (i == 9) {
+                    showImg(image3);
+                } else if (i == 12) {
+                    showImg(image4);
+                } else if (i == 15) {
+                    showImg(image5);
+                } else if (i == 18) {
+                    showImg(image6);
+                }
+                i = i + 1;
             }
         });
+    }
+
+    private void showImg(ImageView img) {
+        Random rand = new Random();
+        int rndInt = rand.nextInt(2) + 1; // n = the number of images, that start at idx 1
+        String imgName = "img" + rndInt;
+        int id = getResources().getIdentifier(imgName, "drawable", getPackageName());
+        img.setVisibility(View.VISIBLE);
+        img.setImageResource(id);
+        if (i == 18){
+            Resources res = getResources();
+            String[] results = res.getStringArray(R.array.results);
+            resultsTextView.setText(results[1]);
+        }
     }
 
 
