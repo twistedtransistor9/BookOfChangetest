@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -20,6 +21,13 @@ public class MainActivity extends AppCompatActivity {
     TextView resultsTextView;
     int i = 1; // is used for step-by-step image change
     int flipDuration; // amount of seconds that coin was flipped
+    String a, b, c, d, e, f;
+//    String a = "";
+//    String b = "";
+//    String c = "";
+//    String d = "";
+//    String e = "";
+//    String f = "";
 
 
     @Override
@@ -68,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         flip.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
+
                 if (i == 3) {
                     showImg(image1);
                 } else if (i == 6) {
@@ -87,16 +96,50 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showImg(ImageView img) {
+
+
         Random rand = new Random();
         int rndInt = rand.nextInt(2) + 1; // n = the number of images, that start at idx 1
+        if (rndInt == 1){
+            if (i == 3) {
+                a ="0";
+            } else if (i == 6) {
+                b ="0";
+            } else if (i == 9) {
+                c ="0";
+            } else if (i == 12) {
+                d ="0";
+            } else if (i == 15) {
+                e ="0";
+            } else if (i == 18) {
+                f ="0";
+            }
+        } else {
+            if (i == 3) {
+                a ="1";
+            } else if (i == 6) {
+                b ="1";
+            } else if (i == 9) {
+                c ="1";
+            } else if (i == 12) {
+                d ="1";
+            } else if (i == 15) {
+                e ="1";
+            } else if (i == 18) {
+                f ="1";
+            }
+
+        }
+
         String imgName = "img" + rndInt;
         int id = getResources().getIdentifier(imgName, "drawable", getPackageName());
         img.setVisibility(View.VISIBLE);
         img.setImageResource(id);
         if (i == 18){
             Resources res = getResources();
-            String[] results = res.getStringArray(R.array.results);
-            resultsTextView.setText(results[1]);
+            String[] resultsArray = res.getStringArray(R.array.results);
+            String results = a + b + c + d + e + f;
+            resultsTextView.setText(results);
         }
     }
 
