@@ -102,31 +102,31 @@ public class MainActivity extends AppCompatActivity {
         int rndInt = rand.nextInt(2) + 1; // n = the number of images, that start at idx 1
         if (rndInt == 1){
             if (i == 3) {
-                a ="0";
+                a ="a";
             } else if (i == 6) {
-                b ="0";
+                b ="a";
             } else if (i == 9) {
-                c ="0";
+                c ="a";
             } else if (i == 12) {
-                d ="0";
+                d ="a";
             } else if (i == 15) {
-                e ="0";
+                e ="a";
             } else if (i == 18) {
-                f ="0";
+                f ="a";
             }
         } else {
             if (i == 3) {
-                a ="1";
+                a ="b";
             } else if (i == 6) {
-                b ="1";
+                b ="b";
             } else if (i == 9) {
-                c ="1";
+                c ="b";
             } else if (i == 12) {
-                d ="1";
+                d ="b";
             } else if (i == 15) {
-                e ="1";
+                e ="b";
             } else if (i == 18) {
-                f ="1";
+                f ="b";
             }
 
         }
@@ -136,10 +136,10 @@ public class MainActivity extends AppCompatActivity {
         img.setVisibility(View.VISIBLE);
         img.setImageResource(id);
         if (i == 18){
-            Resources res = getResources();
-            String[] resultsArray = res.getStringArray(R.array.results);
-            String results = a + b + c + d + e + f;
-            resultsTextView.setText(results);
+            String result = a + b + c + d + e + f;
+            int resultId = getResources().getIdentifier(result, "string", getPackageName());
+            String resultsFinal = getResources().getString(resultId);
+            resultsTextView.setText(resultsFinal);
         }
     }
 
