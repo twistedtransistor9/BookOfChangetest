@@ -3,7 +3,10 @@ package com.myandroidhello.bookofchangetest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.res.Resources;
+import android.graphics.Path;
+import android.graphics.PathMeasure;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,12 +25,8 @@ public class MainActivity extends AppCompatActivity {
     int i = 1; // is used for step-by-step image change
     int flipDuration; // amount of seconds that coin was flipped
     String a, b, c, d, e, f;
-//    String a = "";
-//    String b = "";
-//    String c = "";
-//    String d = "";
-//    String e = "";
-//    String f = "";
+
+
 
 
     @Override
@@ -69,6 +68,42 @@ public class MainActivity extends AppCompatActivity {
     private void flipIt(ImageView resource) {
 
         ObjectAnimator flip = ObjectAnimator.ofFloat(resource, "rotationY", 0f, 3600f);
+        float x = coinImg1.getX();
+        float y = coinImg1.getY();
+        final Path path = new Path();
+
+
+        path.moveTo(x, y);
+        path.lineTo(300, 300);
+        path.lineTo(300, 1000);
+
+
+
+        ValueAnimator pathAnimator = ValueAnimator.ofFloat(0.0f, 1.0f);
+        pathAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
+            float[] point = new float[2];
+
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                // Gets the animated float fraction
+                float val = animation.getAnimatedFraction();
+
+                // Gets the point at the fractional path length
+                PathMeasure pathMeasure = new PathMeasure(path, false);
+                pathMeasure.getPosTan(pathMeasure.getLength() * val, point, null);
+
+                // Sets view location to the above point
+                coinImg1.setX(point[0]);
+                coinImg1.setY(point[1]);
+            }
+        });
+        pathAnimator.setDuration(5000);
+        pathAnimator.start();
+
+
+
+
         Random rand = new Random();
         flipDuration = rand.nextInt(3000 - 2000 + 1) + 2000;
         flip.setDuration(flipDuration);
